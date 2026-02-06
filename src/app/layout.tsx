@@ -36,7 +36,6 @@ export default function RootLayout({
     <html
       lang="zh-CN"
       className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
-      suppressHydrationError
     >
       <head>
         <script
