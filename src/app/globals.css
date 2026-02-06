@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+[data-theme="dark"] {
+  --color-bg: #0c0c0f;
+  --color-surface: #141418;
+  --color-surface-elevated: #1c1c22;
+  --color-border: #2a2a32;
+  --color-accent: #e8b86d;
+  --color-accent-dim: #c49a4a;
+  --color-muted: #6b6b78;
+  --color-text: #e8e6e3;
+  --color-text-soft: #a8a6a3;
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --radius: 0.5rem;
+  --radius-lg: 0.75rem;
+  --shadow-glow: 0 0 40px -8px rgba(232, 184, 109, 0.15);
+}
+
+[data-theme="light"] {
+  --color-bg: #f6f5f3;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #eeedeb;
+  --color-border: #e0deda;
+  --color-accent: #b8860b;
+  --color-accent-dim: #8b6914;
+  --color-muted: #6b6b78;
+  --color-text: #1c1c1f;
+  --color-text-soft: #5c5c64;
+  --shadow-glow: 0 0 40px -8px rgba(184, 134, 11, 0.12);
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  body {
+    @apply bg-[var(--color-bg)] text-[var(--color-text)] font-body;
+  }
+}
+
+/* Stagger reveal for list items */
+.stagger-reveal > * {
+  animation: fadeUp 0.5s ease-out backwards;
+}
+.stagger-reveal > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-reveal > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-reveal > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-reveal > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-reveal > *:nth-child(5) { animation-delay: 0.25s; }
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* JSON tree colors */
+.json-key { color: #7dd3fc; }
+.json-string { color: #86efac; }
+.json-number { color: #fcd34d; }
+.json-boolean { color: #f472b6; }
+.json-null { color: var(--color-muted); }
+[data-theme="light"] .json-key { color: #0369a1; }
+[data-theme="light"] .json-string { color: #15803d; }
+[data-theme="light"] .json-number { color: #a16207; }
+[data-theme="light"] .json-boolean { color: #be185d; }
