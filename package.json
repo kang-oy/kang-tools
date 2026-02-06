@@ -16,6 +16,9 @@
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1"
   },
+  "optionalDependencies": {
+    "@next/swc-linux-x64-gnu": "14.2.35"
+  },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/react": "^18.2.0",
