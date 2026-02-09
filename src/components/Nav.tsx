@@ -7,6 +7,7 @@ import { useTheme } from "@/components/ThemeProvider";
 const TOOLS = [
   { href: "/", label: "首页" },
   { href: "/tools/chat", label: "Chat" },
+  { href: "/tools/translate", label: "翻译" },
   { href: "/tools/json", label: "JSON 美化" },
 ] as const;
 

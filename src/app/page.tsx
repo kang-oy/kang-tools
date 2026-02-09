@@ -10,6 +10,12 @@ const TOOLS = [
     icon: "💬",
   },
   {
+    href: "/tools/translate",
+    title: "翻译",
+    description: "基于大模型的文本翻译，支持多语种与自动检测源语言。",
+    icon: "🌐",
+  },
+  {
     href: "/tools/json",
     title: "JSON 美化",
     description: "格式化、压缩 JSON，并提供可视化树形视图。",

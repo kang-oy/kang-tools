@@ -16,6 +16,7 @@ export default function ChatPage() {
   const [loading, setLoading] = useState(false);
   const [model, setModel] = useState<string | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
@@ -144,15 +145,21 @@ export default function ChatPage() {
             </div>
           ))}
         </div>
-        <form onSubmit={handleSubmit} className="border-t border-[var(--color-border)] p-3">
-          <div className="flex gap-2">
-            <input
-              type="text"
+        <form ref={formRef} onSubmit={handleSubmit} className="border-t border-[var(--color-border)] p-3">
+          <div className="flex gap-2 items-end">
+            <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="输入消息…"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  if (input.trim()) formRef.current?.requestSubmit();
+                }
+              }}
+              placeholder="输入消息… Shift+Enter 换行"
               disabled={loading}
-              className="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-text)] placeholder-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] disabled:opacity-50"
+              rows={1}
+              className="flex-1 min-h-[42px] max-h-[200px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-text)] placeholder-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] disabled:opacity-50 resize-y"
             />
             {loading ? (
               <button
