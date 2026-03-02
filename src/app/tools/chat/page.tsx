@@ -18,6 +18,7 @@ export default function ChatPage() {
   const listRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const [canSend, setCanSend] = useState(false);
 
   useEffect(() => {
     fetch("/api/chat")
@@ -29,6 +30,10 @@ export default function ChatPage() {
   useEffect(() => {
     listRef.current?.scrollTo(0, listRef.current.scrollHeight);
   }, [messages]);
+
+  useEffect(() => {
+    setCanSend(input.trim().length > 0);
+  }, [input]);
 
   function handleStop() {
     abortRef.current?.abort();
@@ -146,10 +151,11 @@ export default function ChatPage() {
           ))}
         </div>
         <form ref={formRef} onSubmit={handleSubmit} className="border-t border-[var(--color-border)] p-3">
-          <div className="flex gap-2 items-end">
+          <div className="flex gap-2 items-end min-h-[42px]">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onCompositionEnd={(e) => setInput((e.target as HTMLTextAreaElement).value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
@@ -159,21 +165,21 @@ export default function ChatPage() {
               placeholder="输入消息… Shift+Enter 换行"
               disabled={loading}
               rows={1}
-              className="flex-1 min-h-[42px] max-h-[200px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-text)] placeholder-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] disabled:opacity-50 resize-y"
+              className="flex-1 min-w-0 min-h-[42px] max-h-[200px] rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2.5 text-sm text-[var(--color-text)] placeholder-[var(--color-muted)] focus:border-[var(--color-accent)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)] disabled:opacity-50 resize-y"
             />
             {loading ? (
               <button
                 type="button"
                 onClick={handleStop}
-                className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-4 py-2.5 text-sm font-medium text-[var(--color-text-soft)] transition hover:bg-[var(--color-border)] hover:text-[var(--color-text)]"
+                className="flex-shrink-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-4 py-2.5 text-sm font-medium text-[var(--color-text-soft)] transition hover:bg-[var(--color-border)] hover:text-[var(--color-text)]"
               >
                 停止
               </button>
             ) : (
               <button
                 type="submit"
-                disabled={!input.trim()}
-                className="rounded-lg bg-[var(--color-accent)] px-4 py-2.5 text-sm font-medium text-[var(--color-bg)] transition hover:bg-[var(--color-accent-dim)] disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={!canSend}
+                className="flex-shrink-0 rounded-lg bg-[var(--color-accent)] px-4 py-2.5 text-sm font-medium text-[var(--color-bg)] transition hover:bg-[var(--color-accent-dim)] disabled:opacity-50 disabled:cursor-not-allowed min-w-[4rem]"
               >
                 发送
               </button>

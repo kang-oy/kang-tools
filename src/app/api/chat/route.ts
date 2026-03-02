@@ -58,7 +58,11 @@ export async function POST(req: NextRequest) {
     });
 
     return new Response(readable, {
-      headers: { "Content-Type": "text/plain; charset=utf-8" },
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-store, no-cache",
+        "X-Accel-Buffering": "no",
+      },
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "请求失败";
