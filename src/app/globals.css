@@ -4,34 +4,44 @@
 
 :root,
 [data-theme="dark"] {
-  --color-bg: #0c0c0f;
-  --color-surface: #141418;
-  --color-surface-elevated: #1c1c22;
-  --color-border: #2a2a32;
-  --color-accent: #e8b86d;
-  --color-accent-dim: #c49a4a;
-  --color-muted: #6b6b78;
-  --color-text: #e8e6e3;
-  --color-text-soft: #a8a6a3;
+  --color-bg: #08090c;
+  --color-bg-mesh: #0a0c12;
+  --color-surface: #111318;
+  --color-surface-elevated: #181b23;
+  --color-border: #252a35;
+  --color-border-subtle: #1a1d26;
+  --color-accent: #3eb8d4;
+  --color-accent-dim: #2d9bb3;
+  --color-accent-warm: #e8b86d;
+  --color-muted: #6b7280;
+  --color-text: #e8eaed;
+  --color-text-soft: #9ca3af;
   --font-display: "Syne", system-ui, sans-serif;
   --font-body: "DM Sans", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --radius: 0.5rem;
   --radius-lg: 0.75rem;
-  --shadow-glow: 0 0 40px -8px rgba(232, 184, 109, 0.15);
+  --shadow-glow: 0 0 40px -8px rgba(62, 184, 212, 0.2);
+  --shadow-glow-strong: 0 0 60px -12px rgba(62, 184, 212, 0.25);
+  --glow-line: 0 0 20px -4px rgba(62, 184, 212, 0.4);
 }
 
 [data-theme="light"] {
-  --color-bg: #f6f5f3;
+  --color-bg: #f4f5f7;
+  --color-bg-mesh: #f0f2f5;
   --color-surface: #ffffff;
-  --color-surface-elevated: #eeedeb;
-  --color-border: #e0deda;
-  --color-accent: #b8860b;
-  --color-accent-dim: #8b6914;
-  --color-muted: #6b6b78;
-  --color-text: #1c1c1f;
-  --color-text-soft: #5c5c64;
-  --shadow-glow: 0 0 40px -8px rgba(184, 134, 11, 0.12);
+  --color-surface-elevated: #f8f9fb;
+  --color-border: #e2e5eb;
+  --color-border-subtle: #e8eaef;
+  --color-accent: #0d9488;
+  --color-accent-dim: #0f766e;
+  --color-accent-warm: #b8860b;
+  --color-muted: #6b7280;
+  --color-text: #111827;
+  --color-text-soft: #4b5563;
+  --shadow-glow: 0 0 32px -8px rgba(13, 148, 136, 0.15);
+  --shadow-glow-strong: 0 0 48px -8px rgba(13, 148, 136, 0.2);
+  --glow-line: 0 0 16px -4px rgba(13, 148, 136, 0.25);
 }
 
 @layer base {
@@ -39,8 +49,73 @@
     @apply antialiased;
   }
   body {
-    @apply bg-[var(--color-bg)] text-[var(--color-text)] font-body;
+    @apply bg-[var(--color-bg)] text-[var(--color-text)] font-body relative;
   }
+}
+
+/* 科技感背景：网格 + 渐变 */
+.tech-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    linear-gradient(160deg, var(--color-bg) 0%, var(--color-bg-mesh) 50%, var(--color-bg) 100%),
+    linear-gradient(180deg, transparent 0%, rgba(62, 184, 212, 0.02) 50%, transparent 100%);
+}
+[data-theme="dark"] .tech-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(62, 184, 212, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 184, 212, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 70%);
+}
+[data-theme="light"] .tech-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(13, 148, 136, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13, 148, 136, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 15%, transparent 65%);
+}
+
+/* 卡片光效 */
+.card-glow {
+  position: relative;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+.card-glow:hover {
+  box-shadow: var(--shadow-glow);
+  border-color: rgba(62, 184, 212, 0.35);
+}
+[data-theme="dark"] .card-glow:hover {
+  transform: translateY(-1px);
+}
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(62, 184, 212, 0.15), transparent 40%, transparent 60%, rgba(62, 184, 212, 0.08));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.card-glow:hover::before {
+  opacity: 1;
+}
+[data-theme="light"] .card-glow::before {
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.2), transparent 40%, transparent 60%, rgba(13, 148, 136, 0.1));
 }
 
 /* Stagger reveal for list items */
