@@ -37,13 +37,6 @@ export default function RootLayout({
       lang="zh-CN"
       className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var t=localStorage.getItem('kang-tools-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();`,
-          }}
-        />
-      </head>
       <body className="min-h-screen flex flex-col">
         <div className="min-h-screen flex flex-col relative">
           <div className="tech-bg" aria-hidden />
