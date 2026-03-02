@@ -21,19 +21,19 @@ export function Nav() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
-          className="font-display text-lg font-semibold tracking-tight text-[var(--color-text)] transition hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] rounded-md"
+          className="flex-shrink-0 font-display text-lg font-semibold tracking-tight text-[var(--color-text)] whitespace-nowrap transition hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] rounded-md"
         >
           <span className="font-mono text-xs text-[var(--color-accent)]/80 mr-1.5 align-middle">›</span>
           Kang Tools
         </Link>
-        <nav className="flex items-center gap-0.5">
+        <nav className="flex items-center gap-0.5 min-w-0 overflow-x-auto overflow-y-hidden scrollbar-none">
           {TOOLS.map(({ href, label }) => {
             const isActive = pathname === href;
             return (
               <Link
                 key={href}
                 href={href}
-                className={`relative rounded-md px-3 py-2 text-sm font-medium transition ${
+                className={`relative flex-shrink-0 rounded-md px-2.5 py-2 text-sm font-medium whitespace-nowrap transition sm:px-3 ${
                   isActive
                     ? "text-[var(--color-accent)]"
                     : "text-[var(--color-text-soft)] hover:bg-[var(--color-surface-elevated)] hover:text-[var(--color-text)]"

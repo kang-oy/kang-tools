@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "run": "node start.js",
     "lint": "next lint",
     "postinstall": "node -e \"if(process.platform==='linux') require('child_process').execSync('npm install @next/swc-linux-x64-gnu@^14.2.0 --no-save', {stdio:'inherit'})\""
   },
