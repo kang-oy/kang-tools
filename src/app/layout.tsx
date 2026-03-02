@@ -45,11 +45,13 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <div className="tech-bg" aria-hidden />
-        <ThemeProvider>
-          <Nav />
-          <main className="flex-1 relative">{children}</main>
-        </ThemeProvider>
+        <div className="min-h-screen flex flex-col relative">
+          <div className="tech-bg" aria-hidden />
+          <ThemeProvider>
+            <Nav />
+            <main className="flex-1 relative">{children}</main>
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );
