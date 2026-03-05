@@ -10,6 +10,12 @@ const TOOLS = [
     icon: "💬",
   },
   {
+    href: "/tools/image-analyze",
+    title: "图片理解",
+    description: "上传图片，让大模型从视觉维度进行结构化分析与解读。",
+    icon: "🖼️",
+  },
+  {
     href: "/tools/translate",
     title: "翻译",
     description: "基于大模型的文本翻译，支持多语种与自动检测源语言。",
@@ -32,12 +38,6 @@ const TOOLS = [
     title: "Base64 编解码",
     description: "文本与 Base64 互转，支持 UTF-8，结果可一键复制。",
     icon: "🔐",
-  },
-  {
-    href: "/tools/image-analyze",
-    title: "图片理解",
-    description: "上传图片，让大模型从视觉维度进行结构化分析与解读。",
-    icon: "🖼️",
   },
 ] as const;
 
