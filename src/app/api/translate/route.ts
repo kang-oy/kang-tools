@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const DEFAULT_MODEL = "gpt-4o-mini";
+// 独立于全局聊天模型，翻译工具固定使用 Hunyuan-MT-7B
+const TRANSLATE_MODEL = "Hunyuan-MT-7B";
 
 const LANG_NAMES: Record<string, string> = {
   auto: "源语言（自动检测）",
@@ -98,7 +99,7 @@ export async function POST(req: NextRequest) {
       ...(baseURL && { baseURL }),
     });
 
-    const model = process.env.OPENAI_MODEL ?? DEFAULT_MODEL;
+    const model = TRANSLATE_MODEL;
     const prompt = buildPrompt(text, sourceLang, targetLang);
 
     const completion = await client.chat.completions.create({

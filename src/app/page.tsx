@@ -33,6 +33,12 @@ const TOOLS = [
     description: "文本与 Base64 互转，支持 UTF-8，结果可一键复制。",
     icon: "🔐",
   },
+  {
+    href: "/tools/image-analyze",
+    title: "图片理解",
+    description: "上传图片，让大模型从视觉维度进行结构化分析与解读。",
+    icon: "🖼️",
+  },
 ] as const;
 
 export default function HomePage() {
